@@ -1,8 +1,10 @@
 const movieApp = {
-    api_key: '3058422e0d59745070d03d9b781c0d40'
+    api_key: '3058422e0d59745070d03d9b781c0d40',
+    resultClear: true
 };
 
 movieApp.displayMovie = function(listOfMovies){
+    $('.result').empty()
     listOfMovies.forEach(function(movie){
             const moviePoster = $('<img>').attr('src',`https://image.tmdb.org/t/p/w300/${movie.poster_path}`);
             const title = $('<h2>').text(movie.title)
@@ -10,7 +12,6 @@ movieApp.displayMovie = function(listOfMovies){
             const movieTitleOverview = $('<div>').addClass('text-styling').append(title, overview)
             const appendToHtml = $('<div>').addClass('movie-details').append(moviePoster, movieTitleOverview)
             $('.result').append(appendToHtml)
-            console.log(movie)
     })
 }
 
@@ -32,6 +33,12 @@ movieApp.movieData = function (language, genre, startDate,endDate, runtime){
         }) 
         // console.log(result.results.runtime)
         
+        let randomize = []
+        for (let i = 0; i < 10; i ++){
+            randomize.push(Math.floor(Math.random() * 101))
+        }
+        console.log(randomize)
+
         movieApp.displayMovie(result.results.slice(0,10));
 
 
