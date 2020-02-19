@@ -1,20 +1,38 @@
+// Swal.fire({
+//     imageUrl: 'assets/Screen Shot 2020-02-19 at 6.26.48 PM.png',
+//     imageHeight: 300,
+//     imageAlt: 'A tall image'
+// })
+
+
+
 const movieApp = {
     api_key: '3058422e0d59745070d03d9b781c0d40',
     resultClear: true
 };
 
 movieApp.displayMovie = function(listOfMovies){
-    $('.result').empty()
-    listOfMovies.forEach(function(movie){
-            const moviePoster = $('<img>').attr('src',`https://image.tmdb.org/t/p/w300/${movie.poster_path}`);
+    if (Object.keys(listOfMovies).length === 0){
+        swal({
+            imageUrl: 'assets/Screen Shot 2020-02-19 at 6.26.48 PM.png',
+            imageHeight: 300,
+            imageAlt: 'There is no matches',
+            confirmButtonColor: '#E71D36',
+            confirmButtonText: 'Try again',
+        })
+    } else{
+        $('.result').empty()
+        listOfMovies.forEach(function(movie){
+            moviePoster = $('<img>').attr('src', `https://image.tmdb.org/t/p/w300/${movie.poster_path}`).attr('onError', "this.onerror=null;this.src='assets/try-again-later.jpg'");
             const title = $('<h2>').text(movie.title)
             const overview = $('<p>').text(movie.overview);
             const releaseYear = $('<p>').text(`Release Date: ${movie.release_date}`)
             const voteAverage = $('<p>').text(`IMDB Voter Avg Score: ${movie.vote_average}`);
-            const movieTitleOverview = $('<div>').addClass('text-styling').append(title, overview, releaseYear, voteAverage)
+            const movieTitleOverview = $('<div>').addClass('text-styling').append(title, overview, releaseYear,voteAverage)
             const appendToHtml = $('<div>').addClass('movie-details').append(moviePoster, movieTitleOverview)
             $('.result').append(appendToHtml)
-    })
+        })
+    }
 }
 
 
@@ -78,6 +96,8 @@ movieApp.userInput = function(){
         const voteAverageHigh = Number(voteAverageLow) + 0.9
         movieApp.movieData(language, genre, startDate,endDate, voteAverageLow, voteAverageHigh)
         console.log(voteAverageLow, voteAverageHigh)
+
+        
     })
 }
 movieApp.init = function(){
