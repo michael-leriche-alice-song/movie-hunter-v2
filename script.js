@@ -34,16 +34,29 @@ movieApp.movieData = function (language, genre, startDate,endDate, runtimeMin, r
         }) 
         // console.log(result.results.runtime)
         
-        let randomProperty = function(obj){
-            let keys = Object.keys(obj)
-            return obj[keys[Math.floor(keys.length * Math.random) ]]
-        }
+        // let randomProperty = function(obj){
+        //     let keys = Object.keys(obj)
+        //     return obj[keys[Math.floor(keys.length * Math.random) ]]
+        // }
 
         // let randomize = (Math.floor(Math.random() * 11))
         
-        console.log(randomProperty(result.results))
+        // console.log(randomProperty(result.results))
+
+        function shuffle(array){
+            for (let i = array.length - 1; i > 0; i--){
+                let j = Math.floor(Math.random()* (i + 1))
+                let item = array[i]
+                array[i] = array[j]
+                array[j] = item
+            }
+        }
+
+        // result.results = shuffle(result.results);
+        console.log(shuffle(result.results))
 
         // movieApp.displayMovie(result.results.slice(0+randomize,10+randomize));
+        //shuffle the result and then slice the first 10 of the new list
         movieApp.displayMovie(result.results.slice(0,10))
 
 
