@@ -16,7 +16,8 @@ movieApp.displayMovie = function(listOfMovies){
     })
 }
 
-movieApp.movieData = function (language, genre, startDate,endDate, runtime, voteAverage){ 
+
+movieApp.movieData = function (language, genre, startDate,endDate, runtimeMin, runtimeMax,voteAverage){ 
     $.ajax('https://api.themoviedb.org/3/discover/movie?',{
         method:"GET",
         dataType:'json',
@@ -28,20 +29,26 @@ movieApp.movieData = function (language, genre, startDate,endDate, runtime, vote
             'primary_release_date.lte': endDate,
             vote_average: voteAverage,
             // 'with_runtime_lte': runtime,
+            'with_runtime.gte':runtimeMin,
+            'with_runtime.lte':runtimeMax
         }
     }).then(function(result){
         result.results.filter(function(item){
-        //code will go here
+            
         }) 
         // console.log(result.results.runtime)
         
-        let randomize = []
-        for (let i = 0; i < 10; i ++){
-            randomize.push(Math.floor(Math.random() * 101))
+        let randomProperty = function(obj){
+            let keys = Object.keys(obj)
+            return obj[keys[Math.floor(keys.length * Math.random) ]]
         }
-        console.log(randomize)
 
-        movieApp.displayMovie(result.results.slice(0,10));
+        // let randomize = (Math.floor(Math.random() * 11))
+        
+        console.log(randomProperty(result.results))
+
+        // movieApp.displayMovie(result.results.slice(0+randomize,10+randomize));
+        movieApp.displayMovie(result.results.slice(0,10))
 
 
 
@@ -57,14 +64,25 @@ movieApp.userInput = function(){
     $('button').on('click', function (event) {
         event.preventDefault();
         const userInput = $('form').serializeArray();
-        console.log(userInput.length)
         const language = userInput[0].value
         const genre = userInput[1].value
         const startDate = `${userInput[2].value}-01-01`
         const endDate = `${Number(userInput[2].value) + 10}-12-31`
-        const runtime = userInput[3].value
+        // const runtime = userInput[3].value
         const voteAverage = (userInput[4].value)
         movieApp.movieData(language, genre, startDate,endDate, runtime, voteAverage)
+        let runtimeMin = userInput[3].value
+        let runtimeMax =  90
+        if (runtimeMin == 0){
+            runtimeMax = 90
+        }else if(runtimeMin == 90){
+            runtimeMax = 120
+        }else if(runtimeMin == 120){
+            runtimeMax = 1000
+        }
+        console.log(runtimeMin)
+        console.log(runtimeMax)
+        movieApp.movieData(language, genre, startDate,endDate, runtimeMin, runtimeMax)
         console.log(typeof(startDate))
     })
 }
