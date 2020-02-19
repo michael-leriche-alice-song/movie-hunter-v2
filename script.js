@@ -9,13 +9,15 @@ movieApp.displayMovie = function(listOfMovies){
             const moviePoster = $('<img>').attr('src',`https://image.tmdb.org/t/p/w300/${movie.poster_path}`);
             const title = $('<h2>').text(movie.title)
             const overview = $('<p>').text(movie.overview);
-            const movieTitleOverview = $('<div>').addClass('text-styling').append(title, overview)
-            const appendToHtml = $('<div>').addClass('movie-details').append(moviePoster, movieTitleOverview)
+            const voterScore = $('<p>').text(movie.vote_average);
+            const movieTitleOverview = $('<div>').addClass('text-styling').append(title, overview, voterScore)
+            const appendToHtml = $('<div>').addClass('movie-details').append(moviePoster, movieTitleOverview, voterScore)
             $('.result').append(appendToHtml)
     })
 }
 
-movieApp.movieData = function (language, genre, startDate,endDate, runtimeMin, runtimeMax){ 
+
+movieApp.movieData = function (language, genre, startDate,endDate, runtimeMin, runtimeMax,voteAverage){ 
     $.ajax('https://api.themoviedb.org/3/discover/movie?',{
         method:"GET",
         dataType:'json',
@@ -25,6 +27,8 @@ movieApp.movieData = function (language, genre, startDate,endDate, runtimeMin, r
             with_genres: genre,
             'primary_release_date.gte': startDate,
             'primary_release_date.lte': endDate,
+            vote_average: voteAverage,
+            // 'with_runtime_lte': runtime,
             'with_runtime.gte':runtimeMin,
             'with_runtime.lte':runtimeMax
         }
@@ -77,6 +81,9 @@ movieApp.userInput = function(){
         const genre = userInput[1].value
         const startDate = `${userInput[2].value}-01-01`
         const endDate = `${Number(userInput[2].value) + 10}-12-31`
+        // const runtime = userInput[3].value
+        const voteAverage = (userInput[4].value)
+        movieApp.movieData(language, genre, startDate,endDate, runtime, voteAverage)
         let runtimeMin = userInput[3].value
         let runtimeMax =  90
         if (runtimeMin == 0){
