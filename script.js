@@ -9,15 +9,16 @@ movieApp.displayMovie = function(listOfMovies){
             const moviePoster = $('<img>').attr('src',`https://image.tmdb.org/t/p/w300/${movie.poster_path}`);
             const title = $('<h2>').text(movie.title)
             const overview = $('<p>').text(movie.overview);
-            const voterScore = $('<p>').text(movie.vote_average);
-            const movieTitleOverview = $('<div>').addClass('text-styling').append(title, overview, voterScore)
-            const appendToHtml = $('<div>').addClass('movie-details').append(moviePoster, movieTitleOverview, voterScore)
+            const releaseYear = $('<p>').text(`Release Date: ${movie.release_date}`)
+            const voteAverage = $('<p>').text(`IMDB Voter Avg Score: ${movie.vote_average}`);
+            const movieTitleOverview = $('<div>').addClass('text-styling').append(title, overview, releaseYear, voteAverage)
+            const appendToHtml = $('<div>').addClass('movie-details').append(moviePoster, movieTitleOverview)
             $('.result').append(appendToHtml)
     })
 }
 
 
-movieApp.movieData = function (language, genre, startDate,endDate, runtimeMin, runtimeMax,voteAverage){ 
+movieApp.movieData = function (language, genre, startDate,endDate, voteAverageLow, voteAverageHigh){ 
     $.ajax('https://api.themoviedb.org/3/discover/movie?',{
         method:"GET",
         dataType:'json',
@@ -27,26 +28,21 @@ movieApp.movieData = function (language, genre, startDate,endDate, runtimeMin, r
             with_genres: genre,
             'primary_release_date.gte': startDate,
             'primary_release_date.lte': endDate,
-            vote_average: voteAverage,
-            // 'with_runtime_lte': runtime,
-            'with_runtime.gte':runtimeMin,
-            'with_runtime.lte':runtimeMax
+            'vote_average.lte': voteAverageHigh,
+            'vote_average.gte': voteAverageLow,
+
         }
     }).then(function(result){
+        let currentDate = new Date()
+        let currentTime = currentDate.getTime()
         result.results.filter(function(item){
-            
+            let itemDate = new Date(item.release_date)
+            console.log(itemDate.getTime())
+            let itemTime = itemDate.getTime() 
+            itemTime <= currentTime
         }) 
-        // console.log(result.results.runtime)
+        console.log(currentTime)
         
-        // let randomProperty = function(obj){
-        //     let keys = Object.keys(obj)
-        //     return obj[keys[Math.floor(keys.length * Math.random) ]]
-        // }
-
-        // let randomize = (Math.floor(Math.random() * 11))
-        
-        // console.log(randomProperty(result.results))
-
         function shuffle(array){
             for (let i = array.length - 1; i > 0; i--){
                 let j = Math.floor(Math.random()* (i + 1))
@@ -55,12 +51,9 @@ movieApp.movieData = function (language, genre, startDate,endDate, runtimeMin, r
                 array[j] = item
             }
         }
-
-        // result.results = shuffle(result.results);
-        console.log(shuffle(result.results))
-
-        // movieApp.displayMovie(result.results.slice(0+randomize,10+randomize));
-        //shuffle the result and then slice the first 10 of the new list
+        shuffle(result.results)
+        
+        // console.log(randomProperty(result.results))
         movieApp.displayMovie(result.results.slice(0,10))
 
 
@@ -81,25 +74,12 @@ movieApp.userInput = function(){
         const genre = userInput[1].value
         const startDate = `${userInput[2].value}-01-01`
         const endDate = `${Number(userInput[2].value) + 10}-12-31`
-        // const runtime = userInput[3].value
-        const voteAverage = (userInput[4].value)
-        movieApp.movieData(language, genre, startDate,endDate, runtime, voteAverage)
-        let runtimeMin = userInput[3].value
-        let runtimeMax =  90
-        if (runtimeMin == 0){
-            runtimeMax = 90
-        }else if(runtimeMin == 90){
-            runtimeMax = 120
-        }else if(runtimeMin == 120){
-            runtimeMax = 1000
-        }
-        console.log(runtimeMin)
-        console.log(runtimeMax)
-        movieApp.movieData(language, genre, startDate,endDate, runtimeMin, runtimeMax)
-        console.log(typeof(startDate))
+        const voteAverageLow = (userInput[3].value)
+        const voteAverageHigh = Number(voteAverageLow) + 0.9
+        movieApp.movieData(language, genre, startDate,endDate, voteAverageLow, voteAverageHigh)
+        console.log(voteAverageLow, voteAverageHigh)
     })
 }
-
 movieApp.init = function(){
     movieApp.userInput()
 }
