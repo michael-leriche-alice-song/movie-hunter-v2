@@ -86,7 +86,7 @@ movieApp.userInput = function(){
         console.log(typeof(startDate))
     })
 }
-
+console.log('testing branch')
 movieApp.init = function(){
     movieApp.userInput()
 }
