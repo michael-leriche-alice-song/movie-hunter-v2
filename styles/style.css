@@ -268,6 +268,11 @@ h2 {
           text-decoration: underline 2px #2EC4B6;
 }
 
+h3 {
+  font-size: 1.3rem;
+  font-family: "Shrikhand", cursive;
+}
+
 h5 {
   font-size: 1.4rem;
   font-family: "Shrikhand", cursive;
@@ -293,6 +298,34 @@ form {
 option {
   color: black;
   font-size: 1.1rem;
+}
+
+.header-title-logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.cat-logo {
+  max-width: 100px;
+  margin-left: 5px;
+}
+
+.header-secondary-text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  line-height: 0.5rem;
 }
 
 form {
