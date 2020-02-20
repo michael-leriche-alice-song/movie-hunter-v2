@@ -255,6 +255,9 @@ footer {
 }    
 //ipad
 @media (max-width: 768px) {
+    .cat-logo{
+        display: none;
+    }
     h1 {
         font-size: 3.4rem;
     }
@@ -349,9 +352,6 @@ footer {
 
 //iphone se
 @media (max-width: 320px) {
-    .cat-logo{
-        display: none;
-    }
     label{
         margin: 8px;
     }
