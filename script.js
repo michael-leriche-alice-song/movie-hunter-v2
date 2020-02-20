@@ -52,12 +52,14 @@ movieApp.movieData = function (language, genre, startDate,endDate, voteAverageLo
         }
     }).then(function(result){
         let currentDate = new Date()
-        let currentTime = currentDate.getTime()
-        result.results.filter(function(item){
+        let currentTime = currentDate.getTime() - 43200000
+        result.results = result.results.filter(function(item){
             let itemDate = new Date(item.release_date)
-            console.log(itemDate.getTime())
-            let itemTime = itemDate.getTime() 
-            itemTime <= currentTime
+            // console.log(itemDate.getTime())
+            let itemTime = itemDate.getTime()
+            // console.log(item.title) 
+            // console.log(currentTime-itemTime)
+            return itemTime <= currentTime
         }) 
         console.log(currentTime)
         
