@@ -40,6 +40,8 @@ document.addEventListener('keydown', keyHandler, false); {
 
 movieApp.displayMovie = function(listOfMovies){
     if (Object.keys(listOfMovies).length === 0){
+        const altText = $('<p>').text('Sorry! We cannot find anything!').addClass('visuallyhidden')
+        $('.result').append(altText)
         swal({
             imageUrl: 'assets/Screen Shot 2020-02-19 at 6.26.48 PM.png',
             imageHeight: 300,
@@ -52,7 +54,13 @@ movieApp.displayMovie = function(listOfMovies){
         listOfMovies.forEach(function(movie){
             moviePoster = $('<img>').attr('src', `https://image.tmdb.org/t/p/w300/${movie.poster_path}`).attr('onError', "this.onerror=null;this.src='assets/try-again-later.jpg'");
             const title = $('<h2>').text(movie.title)
-            const overview = $('<p>').text(movie.overview);
+
+            let overview = ''
+            if (movie.overview != ''){
+                overview = $('<p>').text(movie.overview);
+            }else{
+                overview = $('<p>').text('There is no description available for this movie! We are sorry!')
+            }
             const releaseYear = $('<p>').text(`Release Date: ${movie.release_date}`)
             const voteAverage = $('<p>').text(`IMDB Voter Avg Score: ${movie.vote_average}`);
             const movieTitleOverview = $('<div>').addClass('text-styling').append(title, overview, releaseYear,voteAverage)
