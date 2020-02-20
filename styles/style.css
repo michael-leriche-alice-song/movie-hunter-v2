@@ -246,6 +246,7 @@ img {
 .wrapper {
   max-width: 1200px;
   margin: 0 auto;
+  width: 80%;
 }
 
 h1, h2 {
@@ -449,19 +450,23 @@ button span:after {
   font-size: 3rem;
   position: absolute;
   opacity: 0;
-  top: -34px;
+  top: -32px;
   right: 0px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
 
 button:hover span {
-  padding-right: 150px;
+  padding-right: 50px;
 }
 
 button:hover span:after {
   opacity: 1;
   right: 0;
+}
+
+button:focus {
+  border: 2px solid gold;
 }
 
 .text-styling {
@@ -586,4 +591,148 @@ i:hover {
 footer {
   margin-top: 30px;
   text-align: center;
+}
+
+@media (max-width: 1035px) {
+  button span:after {
+    content: '';
+    font-size: 2.5rem;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+  }
+  button:hover span {
+    top: 15px;
+  }
+  .movie-details img {
+    min-width: 179px;
+    max-width: 180px;
+    height: 275px;
+  }
+  .movie-details {
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+}
+
+@media (max-width: 900px) {
+  .fieldset-div {
+    width: 40%;
+    line-height: 1.5rem;
+  }
+  .radio-labels label {
+    margin: 4px 0;
+  }
+  .option-selectors {
+    width: 40%;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 3.4rem;
+  }
+  .text-styling {
+    padding: 20px 15px 0 20px;
+  }
+  form {
+    height: 70vh;
+  }
+  .menu-headers {
+    font-size: 1.1rem;
+  }
+  h2 {
+    font-size: 1.2rem;
+  }
+  body {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .wrapper {
+    width: 97%;
+  }
+  h1 {
+    font-size: 2.8rem;
+  }
+  h5 {
+    margin: 5px;
+  }
+  .movie-details img {
+    width: 100%;
+  }
+  .movie-details {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 100%;
+  }
+  .text-styling {
+    text-align: left;
+  }
+  .footer-content {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .michael,
+  .alice {
+    width: 100%;
+  }
+  form {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    height: 90vh;
+  }
+  .fieldset-div,
+  .option-selectors {
+    text-align: left;
+  }
+  .option-selectors {
+    width: 95%;
+    text-align: center;
+  }
+  fieldset {
+    margin-top: 10px;
+    line-height: 1rem;
+    padding: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+  .fieldset-div {
+    line-height: 1rem;
+    width: 70%;
+  }
+  .radio-labels {
+    width: 75%;
+  }
+  .menu-headers {
+    text-align: center;
+  }
+  button {
+    width: 100%;
+  }
 }
