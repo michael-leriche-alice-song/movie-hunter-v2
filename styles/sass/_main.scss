@@ -13,7 +13,6 @@
     justify-content: center;
     line-height: 0.5rem;
 }
-
 form {
     margin: 0 auto;
     display: flex;
@@ -49,12 +48,10 @@ input[type="radio"] {
     flex-direction: row;
     justify-content: space-between;
 }
-
 .menu-headers {
     font-size: 1.5rem;
     text-decoration: underline 2px;    
 }
-
 .sub-title-one {
     text-decoration-color: $primaryColour;
 }
@@ -88,36 +85,9 @@ select {
     appearance:none;
     cursor:pointer;
 }
-// .custom-drop-down {position:relative}
-// .custom-drop-down:after {
-//     color:black;
-//     -webkit-transform:rotate(90deg);
-//     -moz-transform:rotate(90deg);
-//     -ms-transform:rotate(90deg);
-//     transform:rotate(90deg);
-//     right:8px; top:2px; 
-//     border-bottom:1px solid #ddd;
-//     position:absolute;
-//     pointer-events:none;
-//     z-index: 1;
-    
-// }
-// .custom-drop-down:before {
-//     content:'';
-//     right:6px; 
-//     top:0px;
-//     width:20px; 
-//     height:0px;
-//     background:#f8f8f8;
-//     position:absolute;
-//     pointer-events:none;
-//     display:block;
- 
-// }
 button {
     border-radius: 25px;
     background: $accentColour;
-    // background: linear-gradient(to right, $primaryColour, $secondaryColour);
     border: none;
     color: #FFFFFF;
     text-align: center;
@@ -136,7 +106,6 @@ button:hover {
 button:active {
     box-shadow: none;
     text-shadow: 2px 2px 3px black;
-
 }
 button span {
     cursor: pointer;
@@ -195,7 +164,6 @@ button:focus {
     max-width: 200px;
     padding: 5px;
     border-radius: 10px;
-
 }
 ul {
     padding: 0;
@@ -261,21 +229,29 @@ footer {
     .movie-details {
         align-items: flex-start;
     }
-   
 }
 //iPads
 @media (max-width: 900px) {
+    .header-secondary-text{
+        line-height: 1.5rem;
+        text-align:center;
+    }
+    h3{
+        width: 60%;
+    }
+    .cat-logo{
+        max-width: 66px
+    }
     .fieldset-div {
         width: 40%;
         line-height: 1.5rem;
     }
-   .radio-labels label {
-       margin: 4px 0;
-   }
-   .option-selectors {
-       width: 40%;
-   }
-
+    .radio-labels label {
+        margin: 4px 0;
+    }
+    .option-selectors {
+        width: 40%;
+    }
 }    
 //ipad
 @media (max-width: 768px) {
@@ -288,6 +264,9 @@ footer {
     form {
         height: 70vh;
     }
+    .radio-labels label{
+        margin: 0;
+    }
     .menu-headers {
         font-size: 1.1rem;
     }
@@ -298,9 +277,9 @@ footer {
         font-size: 0.9rem;
     }
 }
+
 //mobile
 @media (max-width:450px) {
-
     .wrapper {
         width: 97%;
     }
@@ -329,7 +308,6 @@ footer {
     .alice {
         width: 100%;
     }
-
     form {
         flex-direction: column;
         justify-content: space-around;
@@ -339,7 +317,6 @@ footer {
     .fieldset-div,
     .option-selectors {
         text-align: left;
-
     } 
     .option-selectors {
         width: 95%;
@@ -352,25 +329,30 @@ footer {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        
     }
     .fieldset-div {
         line-height: 1rem;
-        width: 70%;
+        width: 93%;
     }  
     .radio-labels {
-        width: 75%;
-        
+        width: 100%;
+        line-height: 1.3rem;
     }
     .menu-headers {
         text-align: center;
     }
-    
     button {
         width: 100%;
+        margin:20px auto;
     }
 }
-//iphone X
-@media (max-width: 414px) {}
+
 //iphone se
-@media (max-width: 320px) {}
+@media (max-width: 320px) {
+    .cat-logo{
+        display: none;
+    }
+    label{
+        margin: 8px;
+    }
+}

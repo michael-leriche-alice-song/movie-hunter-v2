@@ -649,6 +649,16 @@ footer {
 }
 
 @media (max-width: 900px) {
+  .header-secondary-text {
+    line-height: 1.5rem;
+    text-align: center;
+  }
+  h3 {
+    width: 60%;
+  }
+  .cat-logo {
+    max-width: 66px;
+  }
   .fieldset-div {
     width: 40%;
     line-height: 1.5rem;
@@ -670,6 +680,9 @@ footer {
   }
   form {
     height: 70vh;
+  }
+  .radio-labels label {
+    margin: 0;
   }
   .menu-headers {
     font-size: 1.1rem;
@@ -757,15 +770,26 @@ footer {
   }
   .fieldset-div {
     line-height: 1rem;
-    width: 70%;
+    width: 93%;
   }
   .radio-labels {
-    width: 75%;
+    width: 100%;
+    line-height: 1.3rem;
   }
   .menu-headers {
     text-align: center;
   }
   button {
     width: 100%;
+    margin: 20px auto;
+  }
+}
+
+@media (max-width: 320px) {
+  .cat-logo {
+    display: none;
+  }
+  label {
+    margin: 8px;
   }
 }

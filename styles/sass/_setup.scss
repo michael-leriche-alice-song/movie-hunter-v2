@@ -14,31 +14,25 @@ body{
 img {
     max-width: 100%;
 }
-
 .wrapper{
     max-width: 1200px;
     margin: 0 auto;
     width: 80%;
 }
-
 h1, h2{
     margin: 0;
     padding: 0;
 }
-
 h1{
     font-size: 5rem;
     text-align: center;
     font-family: $headerFont;
     color: $primaryColour;
-
 }
-
 h2 {
     font-size: 1.8rem;
     font-family: $headerFont;
     text-decoration: underline 2px $accentColour;
-
 }
 h3 {
     font-size: 1.3rem;

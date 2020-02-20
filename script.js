@@ -1,49 +1,19 @@
-// Swal.fire({
-//     imageUrl: 'assets/Screen Shot 2020-02-19 at 6.26.48 PM.png',
-//     imageHeight: 300,
-//     imageAlt: 'A tall image'
-// })
-
-
-
 const movieApp = {
     api_key: '3058422e0d59745070d03d9b781c0d40',
+    //flag for empty the result div
     resultClear: true
 };
 
-let pattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-let current = 0;
-
-
-let keyHandler = function (event) {
-	if (pattern.indexOf(event.key) < 0 || event.key !== pattern[current]) {
-		current = 0;
-		return;
-	}
-	current++;
-	if (pattern.length === current) {
-		current = 0;
-        window.location.href = "seth.html" 
-	}
-};
-document.addEventListener('keydown', keyHandler, false); {
-}
-
-
-
-
-
-
-
-
-
-
+//display the movies that meets the user input
 movieApp.displayMovie = function(listOfMovies){
     if (Object.keys(listOfMovies).length === 0){
+        //alt text if there is no result
+        //for screen reader
         const altText = $('<p>').text('Sorry! We cannot find anything!').addClass('visuallyhidden')
         $('.result').append(altText)
+        //for sweet alert
         swal({
-            imageUrl: 'assets/Screen Shot 2020-02-19 at 6.26.48 PM.png',
+            imageUrl: 'assets/no-movies.png',
             imageHeight: 300,
             imageAlt: 'There is no matches',
             confirmButtonColor: '#E71D36',
@@ -52,9 +22,10 @@ movieApp.displayMovie = function(listOfMovies){
     } else{
         $('.result').empty()
         listOfMovies.forEach(function(movie){
+            //alt image if movie poster image cannot be found
             moviePoster = $('<img>').attr('src', `https://image.tmdb.org/t/p/w300/${movie.poster_path}`).attr('onError', "this.onerror=null;this.src='assets/try-again-later.jpg'");
+            //get all the information from the database
             const title = $('<h2>').text(movie.title)
-
             let overview = ''
             if (movie.overview != ''){
                 overview = $('<p>').text(movie.overview);
@@ -64,13 +35,14 @@ movieApp.displayMovie = function(listOfMovies){
             const releaseYear = $('<p>').text(`Release Date: ${movie.release_date}`)
             const voteAverage = $('<p>').text(`IMDB Voter Avg Score: ${movie.vote_average}`);
             const movieTitleOverview = $('<div>').addClass('text-styling').append(title, overview, releaseYear,voteAverage)
-            const appendToHtml = $('<div>').addClass('movie-details').append(moviePoster, movieTitleOverview)
+            const appendToHtml = $('<div tabindex="0">').addClass('movie-details').append(moviePoster, movieTitleOverview)
+            //show the results
             $('.result').append(appendToHtml)
         })
     }
 }
 
-
+// get the movies from the API
 movieApp.movieData = function (language, genre, startDate,endDate, voteAverageLow, voteAverageHigh){ 
     $.ajax('https://api.themoviedb.org/3/discover/movie?',{
         method:"GET",
@@ -86,18 +58,16 @@ movieApp.movieData = function (language, genre, startDate,endDate, voteAverageLo
 
         }
     }).then(function(result){
+        // get rid of the movies that have yet to be released
         let currentDate = new Date()
         let currentTime = currentDate.getTime() - 43200000
         result.results = result.results.filter(function(item){
             let itemDate = new Date(item.release_date)
-            // console.log(itemDate.getTime())
             let itemTime = itemDate.getTime()
-            // console.log(item.title) 
-            // console.log(currentTime-itemTime)
             return itemTime <= currentTime
         }) 
-        console.log(currentTime)
         
+        //randomize results
         function shuffle(array){
             for (let i = array.length - 1; i > 0; i--){
                 let j = Math.floor(Math.random()* (i + 1))
@@ -107,23 +77,16 @@ movieApp.movieData = function (language, genre, startDate,endDate, voteAverageLo
             }
         }
         shuffle(result.results)
-        
-        // console.log(randomProperty(result.results))
+        //pass the results for displaying
         movieApp.displayMovie(result.results.slice(0,10))
-
-
-
-        // console(result.results[0]releaseDate)
-
-        //get a array of movies that meets the standards
     })
 }
-//the thing is I cannot come up with way that allow me find multiple year at a time
-
 
 movieApp.userInput = function(){
+    //when the user click the submit button
     $('button').on('click', function (event) {
         event.preventDefault();
+        //get user input from the form
         const userInput = $('form').serializeArray();
         const language = userInput[0].value
         const genre = userInput[1].value
@@ -131,12 +94,11 @@ movieApp.userInput = function(){
         const endDate = `${Number(userInput[2].value) + 10}-12-31`
         const voteAverageLow = (userInput[3].value)
         const voteAverageHigh = Number(voteAverageLow) + 0.9
+        // send user input to API to match criteria
         movieApp.movieData(language, genre, startDate,endDate, voteAverageLow, voteAverageHigh)
-        console.log(voteAverageLow, voteAverageHigh)
-
-        
     })
 }
+
 movieApp.init = function(){
     movieApp.userInput()
 }
@@ -144,6 +106,24 @@ movieApp.init = function(){
 //document ready
 $(function(){
     movieApp.init();
+    //easter egg konami code 
+    let pattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    let current = 0;
+
+
+    let keyHandler = function (event) {
+        if (pattern.indexOf(event.key) < 0 || event.key !== pattern[current]) {
+            current = 0;
+            return;
+        }
+        current++;
+        if (pattern.length === current) {
+            current = 0;
+            window.location.href = "seth.html"
+        }
+    };
+    document.addEventListener('keydown', keyHandler, false); {
+    }
 })
 
 
