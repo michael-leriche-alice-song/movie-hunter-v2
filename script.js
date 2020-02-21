@@ -125,24 +125,3 @@ $(function(){
     document.addEventListener('keydown', keyHandler, false); {
     }
 })
-
-
-
-
-
-
-
-
-/*
--https://api.openbrewerydb.org/breweries?by_city=Alameda&brewery_type=micro
--this works, this api allows us use multiple filters at the same time
--use ajax to retrieve data. probably use multiple q to get data 
--if array.length > 5
-    random get 5
--else 
-    return all 
-
-ul.append()
-
-
-*/
